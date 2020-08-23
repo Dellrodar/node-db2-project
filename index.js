@@ -1,24 +1,24 @@
-const express = require("express")
-const helmet = require("helmet")
-const welcomeRouter = require("./welcome/welcome-router")
-const carsRouter = require("./api/cars/cars-router.js")
+const express = require('express');
+const helmet = require('helmet');
+const welcomeRouter = require('./welcome/welcome-router');
+const carsRouter = require('./api/cars/cars-router.js');
 
-const server = express()
-const port = process.env.PORT || 5000
+const server = express();
+const port = process.env.PORT || 5000;
 
-server.use(helmet())
-server.use(express.json())
+server.use(helmet());
+server.use(express.json());
 
-server.use(welcomeRouter)
-server.use(carsRouter)
+server.use(welcomeRouter);
+server.use('/cars', carsRouter);
 
 server.use((err, req, res, next) => {
-	console.log(err)
+	console.log(err);
 	res.status(500).json({
-		message: "Something went wrong",
-	})
-})
+		message: 'Something went wrong',
+	});
+});
 
 server.listen(port, () => {
-	console.log(`Running at http://localhost:${port}`)
-})
+	console.log(`Running at http://localhost:${port}`);
+});
